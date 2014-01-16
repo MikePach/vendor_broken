@@ -251,3 +251,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.modversion=$(broken_MOD_VERSION) \
     ro.broken.buildtype=$(broken_BUILD_TYPE)
 
+ifeq ($(USE_PREBUILT_CHROMIUM),1)
+ifeq ($(PRODUCT_PREBUILT_WEBVIEWCHROMIUM),yes)
+
+$(call inherit-product-if-exists, prebuilts/chromium/$(TARGET_DEVICE)/chromium_prebuilt.mk)
+
+endif
+endif

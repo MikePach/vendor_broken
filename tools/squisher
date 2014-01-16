@@ -1,8 +1,10 @@
-#!/bin/sh
+#!/bin/bash
 #
 # Squish a CM otapackage for distribution
 # cyanogen
 #
+
+. $ANDROID_BUILD_TOP/vendor/broken/tools/colors
 
 OUT_TARGET_HOST=`uname -a | grep Darwin`
 if [ -z "$OUT_TARGET_HOST" ]
@@ -19,8 +21,22 @@ else
 fi
 
 if [ -z "$OUT" -o ! -d "$OUT" ]; then
-    echo "ERROR: $0 only works with a full build environment. $OUT should exist."
-    exit 1
+	echo -e ${red}"ERROR: $0 only works with a full build environment. $OUT should exist."${txtrst}
+	exit 1
+fi
+
+if [ "$TARGET_BUILD_TYPE" = "debug" ]; then
+    OTAPACKAGE=$OUT/${TARGET_PRODUCT}_debug-ota-eng.$USER.zip
+elif [ "$TARGET_BUILD_VARIANT" = "userdebug" ]; then
+    OTAPACKAGE=$OUT/$TARGET_PRODUCT-ota-userdebug.$USER.zip
+elif [ "$TARGET_BUILD_VARIANT" = "user" ]; then
+    OTAPACKAGE=$OUT/$TARGET_PRODUCT-ota-user.$USER.zip
+else
+    OTAPACKAGE=$OUT/$TARGET_PRODUCT-ota-eng.$USER.zip
+fi
+if [ ! -f "$OTAPACKAGE" ]; then
+	echo -e ${red}"$OTAPACKAGE doesn't exist!"${txtrst};
+	exit 1
 fi
 
 if [ "$TARGET_BUILD_TYPE" = "debug" ]; then
@@ -131,6 +147,23 @@ rm -rf $REPACK/ota/system/tts
 # No need for srec
 rm -rf $REPACK/ota/system/usr/srec
 
+# Delete broken specific files
+if [ -f $ANDROID_BUILD_TOP/vendor/broken/tools/squisher.rm ]; then
+	for RM_FILE in `cat $ANDROID_BUILD_TOP/vendor/broken/tools/squisher.rm`; do
+		rm -f $REPACK/ota/$RM_FILE
+	done
+fi
+
+# Delete target product specific files
+if [ -f $ANDROID_BUILD_TOP/vendor/broken/tools/$TARGET_PRODUCT-squisher.rm ]; then
+	for RM_FILE in `cat $ANDROID_BUILD_TOP/vendor/broken/tools/$TARGET_PRODUCT-squisher.rm`; do
+		rm -f $REPACK/ota/$RM_FILE
+	done
+fi
+
+# Delete unnecessary binaries
+( cd $REPACK/ota/system/bin; echo $DELETE_BINS | xargs rm -f; )
+
 # No need for recovery
 rm -rf $REPACK/ota/recovery
 rm -rf $REPACK/ota/system/etc/recovery-resource.dat
@@ -138,6 +171,20 @@ rm -rf $REPACK/ota/system/etc/recovery-resource.dat
 # Strip modules
 [ -d $REPACK/ota/system/lib/modules ] && \
 	find $REPACK/ota/system/lib/modules -name "*.ko" -print0 | xargs -0 arm-eabi-strip --strip-unneeded
+
+# Determine what to name the new signed package
+MODVERSION=`sed -n -e'/ro\.broken\.version/s/^.*=//p' $OUT/system/build.prop`
+TARGET_PRODUCT_FINAL=`echo $TARGET_PRODUCT | cut -b 8-`
+echo -e ${grn}"MODVERSION: $MODVERSION"${txtrst}
+OUTFILE=$OUT/$MODVERSION-$TARGET_PRODUCT_FINAL.zip
+ABIGEN=`grep 'ro.product.cpu.abi=' $REPACK/ota/system/build.prop | sed -e 's/ro.product.cpu.abi=//g'`
+OUTFILE=$OUT/$MODVERSION.zip
+
+if [ -n $ABIGEN ]; then
+	echo ${cya}"Packing in Pre-Built Libs for CPU Variant:${ylw}$ABIGEN"${txtrst}
+	cp ${ANDROID_BUILD_TOP}/vendor/broken/prebuilt/libs/$ABIGEN/libbypass.so $REPACK/ota/system/lib/libbypass.so
+	echo ""
+fi
 
 # Fix LCD Density for broken
 DEVICELCD=`sed -n -e'/ro\.sf\.lcd_density/s/^.*=//p' $OUT/system/build.prop`
@@ -179,32 +226,17 @@ if [ -e "$PREBUILTKERNEL" ];then
    mv -f $REPACK/ota/system/brokenkernel/boot.img $REPACK/ota/boot.img
 fi
 
-# Determine what to name the new signed package
-MODVERSION=`sed -n -e'/ro\.broken\.version/s/^.*=//p' $OUT/system/build.prop`
-# Check for '_' in product name
-if [ "`echo -e $TARGET_PRODUCT | cut -d '_' -f3`" != "" ]
-then
-TARGET_PRODUCT_FINAL=`echo -e $TARGET_PRODUCT | cut -d '_' -f2,3`
-else
-TARGET_PRODUCT_FINAL=`echo -e $TARGET_PRODUCT | cut -d '_' -f2`
-fi
-echo -e $CL_CYN"MODVERSION: $MODVERSION"$CL_RST
-OUTFILE=$OUT/$MODVERSION-$TARGET_PRODUCT_FINAL.zip
-
 # Pack it up and sign
-printf "Zipping package..."
+echo -e ${grn}"Zipping package..."${txtrst}
 ( cd $REPACK/ota; zip $QUIET -r $REPACK/update.zip . )
-echo
-printf "Signing package..."
+echo -e ${grn}"Signing package..."${txtrst}
 SECURITYDIR=$ANDROID_BUILD_TOP/build/target/product/security
 java -Xmx1024m \
 	-jar $OUT/../../../host/$OUT_TARGET_HOST/framework/signapk.jar \
 	-w $SECURITYDIR/testkey.x509.pem $SECURITYDIR/testkey.pk8 \
 	$REPACK/update.zip $OUTFILE
-echo
-printf "Cleaning up..."
+echo -e ${grn}"Cleaning up..."${txtrst}
 rm -rf $REPACK
-echo
 
 echo -e $CL_RED" ******************************************************** "$CL_RST
 echo -e $CL_RED" //////////////////////////////////////////////////////// "$CL_RST
@@ -228,10 +260,13 @@ echo -e $CL_RED" ******************************************************** "$CL_R
 img=`basename $OUTFILE`
 cd `dirname $OUTFILE`
 $MD5 $img >$img.md5sum
-echo
-echo "Package complete: $OUTFILE"
-cat $img.md5sum
-echo
+ZIPSIZE=`ls -lah $OUTFILE | awk '{ print $5}'`
+echo -e ""; echo -e ${cya}"Package complete:${ylw} $OUTFILE"${txtrst}
+echo -e ${cya}"ZIP:${ylw}  $img"${txtrst}
+echo -e ${cya}"MD5: ${ylw} `cat $img.md5sum | awk '{print $1}'`"${txtrst}
+echo -e ${cya}"SIZE:${ylw} $ZIPSIZE"${txtrst}
+MD5VAL=`cat $img.md5sum  | awk '{ print $1 }'`
+DEVICE=`echo -e $TARGET_PRODUCT | cut -d "_" -f 2`
 )
 
 exit 0
