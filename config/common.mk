@@ -170,7 +170,11 @@ PRODUCT_PACKAGES += \
 # easy way to extend to add more packages
 -include vendor/extra/product.mk
 
+
 PRODUCT_PACKAGE_OVERLAYS += vendor/broken/overlay/common
+
+# Theme Manager
+include vendor/broken/config/themes.mk
 
 # Boot animation include
 ifneq ($(TARGET_SCREEN_WIDTH) $(TARGET_SCREEN_HEIGHT),$(space))
