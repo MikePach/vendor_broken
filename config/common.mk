@@ -97,7 +97,8 @@ PRODUCT_PACKAGES += \
     SlimFileManager \
     LatinIME \
     BluetoothExt \
-    DashClock
+    DashClock \
+    KernelTweaker
 
 # Extra tools
 PRODUCT_PACKAGES += \
