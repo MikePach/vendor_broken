@@ -2,3 +2,4 @@ add_lunch_combo broken_flo-userdebug
 add_lunch_combo broken_hammerhead-userdebug
 add_lunch_combo broken_quincyatt-userdebug
 add_lunch_combo broken_quincytmo-userdebug
+add_lunch_combo broken_toro-userdebug
