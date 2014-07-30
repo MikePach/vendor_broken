@@ -98,8 +98,7 @@ PRODUCT_PACKAGES += \
     LatinIME \
     BluetoothExt \
     DashClock \
-    KernelTweaker \
-    OmniSwitch
+    KernelTweaker
 
 # Extra tools
 PRODUCT_PACKAGES += \
