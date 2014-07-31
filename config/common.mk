@@ -16,13 +16,13 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.setupwizard.enterprise_mode=1 \
     ro.com.android.dateformat=MM-dd-yyyy \
     ro.com.android.dataroaming=false
+    persist.sys.root_access=3
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.build.selinux=1
 
-# Disable excessive dalvik debug messages
-PRODUCT_PROPERTY_OVERRIDES += \
-    dalvik.vm.debug.alloc=0
+# Thank you, please drive thru!
+PRODUCT_PROPERTY_OVERRIDES += persist.sys.dun.override=0
 
 # Backup Tool
 PRODUCT_COPY_FILES += \
@@ -69,6 +69,10 @@ PRODUCT_COPY_FILES += \
 # OmniSwitch
 PRODUCT_COPY_FILES += \
     vendor/broken/prebuilt/common/app/OmniSwitch.apk:system/priv-app/OmniSwitch.apk
+    
+# Viper4Android
+PRODUCT_COPY_FILES += \
+    vendor/broken/prebuilt/common/app/ViPER4Android.apk:system/app/ViPER4Android.apk
 
 # Embed SuperUser
 SUPERUSER_EMBEDDED := true
@@ -89,12 +93,6 @@ PRODUCT_PACKAGES += \
     Galaxy4 \
     LiveWallpapersPicker \
     PhaseBeam
-
-# DSPManager
-PRODUCT_PACKAGES += \
-    DSPManager \
-    libcyanogen-dsp \
-    audio_effects.conf
 
 # Extra Optional packages
 PRODUCT_PACKAGES += \
