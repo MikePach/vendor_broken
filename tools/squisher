@@ -180,9 +180,16 @@ if [ -e "$PREBUILTKERNEL" ];then
 fi
 
 # Determine what to name the new signed package
-MODVERSION=`sed -n -e'/ro\.modversion/s/^.*=//p' $REPACK/ota/system/build.prop`
-OUTFILE=$OUT/$MODVERSION.zip
-echo MODVERSION: $MODVERSION
+MODVERSION=`sed -n -e'/ro\.broken\.version/s/^.*=//p' $OUT/system/build.prop`
+# Check for '_' in product name
+if [ "`echo -e $TARGET_PRODUCT | cut -d '_' -f3`" != "" ]
+then
+TARGET_PRODUCT_FINAL=`echo -e $TARGET_PRODUCT | cut -d '_' -f2,3`
+else
+TARGET_PRODUCT_FINAL=`echo -e $TARGET_PRODUCT | cut -d '_' -f2`
+fi
+echo -e $CL_CYN"MODVERSION: $MODVERSION"$CL_RST
+OUTFILE=$OUT/$MODVERSION-$TARGET_PRODUCT_FINAL.zip
 
 # Pack it up and sign
 printf "Zipping package..."
@@ -198,6 +205,22 @@ echo
 printf "Cleaning up..."
 rm -rf $REPACK
 echo
+
+echo -e $CL_RED"  _______   ________    ___________    ____   ____    ________   _____    ____ "$CL_RST
+echo -e $CL_RED" |       \ |        \  /           \  |    |/    /   |   ____|  |     \  |   | "$CL_RST
+echo -e $CL_RED" |       | |  |  |  | |            |  |         /    |   |__    |      \ |   | "$CL_RST
+echo -e $CL_RED" |  |  | | |       /  |    _____   |  |        /     |    __|   |       \|   | "$CL_RST
+echo -e $CL_RED" |       | |       \  |   /     \  |  |        \     |   |___   |   |\       | "$CL_RST
+echo -e $CL_RED" |       | |   |\   \ |  |      /| |  |    |\   \    |       |  |   | \      | "$CL_RST
+echo -e $CL_RED" |       / |___| \   \|  |     / | |  |  __| \___\   |_______|  |___|  \     | "$CL_RST
+echo -e $CL_RED" |      /         \   |  |    /  | |  | / ______________________________\    | "$CL_RST
+echo -e $CL_RED" |      \          \  |  |   /   | |  |//                               \\   | "$CL_RST
+echo -e $CL_RED" |       \          \ |  |  /    | |   |        _________________________\\  | "$CL_RST
+echo -e $CL_RED" |        \          \|  | /     | |   |       /________________________   \ | "$CL_RST    
+echo -e $CL_RED" |  |   |  \          |   \_____/  |    \_____________________________   \  \| "$CL_RST
+echo -e $CL_RED" |  |   |   |         |            |     _____________________________/   |    "$CL_RST
+echo -e $CL_RED" |          |         |            |   /                                  |    "$CL_RST
+echo -e $CL_RED" |_________/           \__________/   /__________________________________/     "$CL_RST
 
 # Create a md5 checksum image of the repacked package
 (
