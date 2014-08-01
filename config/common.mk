@@ -48,6 +48,9 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     vendor/broken/prebuilt/common/etc/init.d/50selinuxrelabel:system/etc/init.d/50selinuxrelabel
     
+# Embed SuperUser
+SUPERUSER_EMBEDDED := true
+
 # SU Support
 PRODUCT_COPY_FILES += \
     vendor/broken/prebuilt/bin/su:system/xbin/daemonsu \
@@ -88,6 +91,8 @@ PRODUCT_PACKAGES += \
     CellBroadcastReceiver \
     Development \
     SpareParts \
+    Superuser \
+    su
 
 # Optional packages
 PRODUCT_PACKAGES += \
