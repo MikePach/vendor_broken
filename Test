@@ -1,2 +1,0 @@
-I am trying to repair the "detached" head issue we are having in most of our repos. This will eliminate the need to
-use git push gh HEAD:kk...hopefully
