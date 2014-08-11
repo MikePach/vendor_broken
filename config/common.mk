@@ -85,6 +85,10 @@ PRODUCT_COPY_FILES += \
 # Viper4Android
 PRODUCT_COPY_FILES += \
     vendor/broken/prebuilt/common/app/ViPER4Android.apk:system/app/ViPER4Android.apk
+    
+# AdAway
+PRODUCT_COPY_FILES += \
+    vendor/broken/prebuilt/common/app/Adaway.apk:system/priv-app/Adaway.apk
 
 # Required packages
 PRODUCT_PACKAGES += \
