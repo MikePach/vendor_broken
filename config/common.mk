@@ -88,7 +88,7 @@ PRODUCT_COPY_FILES += \
     
 # AdAway
 PRODUCT_COPY_FILES += \
-    vendor/broken/prebuilt/common/app/Adaway.apk:system/priv-app/Adaway.apk
+    vendor/broken/prebuilt/common/app/Adaway.apk:system/app/Adaway.apk
 
 # Required packages
 PRODUCT_PACKAGES += \
