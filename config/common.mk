@@ -113,6 +113,11 @@ PRODUCT_PACKAGES += \
     BluetoothExt \
     DashClock \
     KernelTweaker
+    
+# CM Hardware Abstraction Framework
+PRODUCT_PACKAGES += \
+    org.cyanogenmod.hardware \
+    org.cyanogenmod.hardware.xml
 
 # Extra tools
 PRODUCT_PACKAGES += \
