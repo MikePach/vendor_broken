@@ -69,10 +69,41 @@ PRODUCT_COPY_FILES += \
     vendor/broken/prebuilt/common/etc/mkshrc:system/etc/mkshrc \
     vendor/broken/prebuilt/common/etc/sysctl.conf:system/etc/sysctl.conf
 
+#Init.d Support
 PRODUCT_COPY_FILES += \
     vendor/broken/prebuilt/common/etc/init.d/00banner:system/etc/init.d/00banner \
     vendor/broken/prebuilt/common/etc/init.d/90userinit:system/etc/init.d/90userinit \
+    vendor/broken/prebuilt/common/etc/init.d/00check:system/etc/init.d/00check \
+    vendor/broken/prebuilt/common/etc/init.d/01zipalign:system/etc/init.d/01zipalign \
+    vendor/broken/prebuilt/common/etc/init.d/02sysctl:system/etc/init.d/02sysctl \
+    vendor/broken/prebuilt/common/etc/init.d/03firstboot:system/etc/init.d/03firstboot \
+    vendor/broken/prebuilt/common/etc/init.d/05freemem:system/etc/init.d/05freemem \
+    vendor/broken/prebuilt/common/etc/init.d/06removecache:system/etc/init.d/06removecache \
+    vendor/broken/prebuilt/common/etc/init.d/07fixperms:system/etc/init.d/07fixperms \
+    vendor/broken/prebuilt/common/etc/init.d/09cron:system/etc/init.d/09cron \
+    vendor/broken/prebuilt/common/etc/init.d/10sdboost:system/etc/init.d/10sdboost \
+    vendor/broken/prebuilt/common/etc/init.d/11battery:system/etc/init.d/11battery \
+    vendor/broken/prebuilt/common/etc/init.d/12touch:system/etc/init.d/12touch \
+    vendor/broken/prebuilt/common/etc/init.d/13minfree:system/etc/init.d/13minfree \
+    vendor/broken/prebuilt/common/etc/init.d/14gpurender:system/etc/init.d/14gpurender \
+    vendor/broken/prebuilt/common/etc/init.d/15sleepers:system/etc/init.d/15sleepers \
+    vendor/broken/prebuilt/common/etc/init.d/16journalism:system/etc/init.d/16journalism \
+    vendor/broken/prebuilt/common/etc/init.d/17sqlite3:system/etc/init.d/17sqlite3 \
+    vendor/broken/prebuilt/common/etc/init.d/18wifisleep:system/etc/init.d/18wifisleep \
+    vendor/broken/prebuilt/common/etc/init.d/19iostats:system/etc/init.d/19iostats \
+    vendor/broken/prebuilt/common/etc/init.d/20setrenice:system/etc/init.d/20setrenice \
+    vendor/broken/prebuilt/common/etc/init.d/21tweaks:system/etc/init.d/21tweaks \
+    vendor/broken/prebuilt/common/etc/init.d/24speedy_modified:system/etc/init.d/24speedy_modified \
+    vendor/broken/prebuilt/common/etc/init.d/25loopy_smoothness_tweak:system/etc/init.d/25loopy_smoothness_tweak \
+    vendor/broken/prebuilt/common/etc/init.d/98tweaks:system/etc/init.d/98tweaks \
+    vendor/broken/prebuilt/common/etc/helpers.sh:system/etc/helpers.sh \
+    vendor/broken/prebuilt/common/etc/init.d.cfg:system/etc/init.d.cfg \
     vendor/broken/prebuilt/common/bin/sysinit:system/bin/sysinit
+    
+# Added xbin files
+PRODUCT_COPY_FILES += \
+    vendor/broken/prebuilt/common/xbin/zip:system/xbin/zip \
+    vendor/broken/prebuilt/common/xbin/zipalign:system/xbin/zipalign
 
 # Workaround for NovaLauncher zipalign fails
 PRODUCT_COPY_FILES += \
