@@ -112,7 +112,8 @@ PRODUCT_PACKAGES += \
     LatinIME \
     BluetoothExt \
     DashClock \
-    KernelTweaker
+    KernelTweaker \
+    PerformanceControl
     
 # CM Hardware Abstraction Framework
 PRODUCT_PACKAGES += \
