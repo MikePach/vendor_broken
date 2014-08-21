@@ -150,9 +150,6 @@ PRODUCT_PACKAGES += \
     org.cyanogenmod.hardware \
     org.cyanogenmod.hardware.xml
 
-# Theme Manager
-include vendor/broken/config/themes.mk
-
 # Extra tools
 PRODUCT_PACKAGES += \
     openvpn \
@@ -231,3 +228,4 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.broken.version=$(broken_VERSION) \
     ro.modversion=$(broken_MOD_VERSION) \
     ro.broken.buildtype=$(broken_BUILD_TYPE)
+
