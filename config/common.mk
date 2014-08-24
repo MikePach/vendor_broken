@@ -167,6 +167,9 @@ PRODUCT_PACKAGES += \
     libFFmpegExtractor \
     libnamparser
 
+# themes
+include vendor/broken/config/theme_chooser.mk
+
 # easy way to extend to add more packages
 -include vendor/extra/product.mk
 
@@ -228,4 +231,3 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.broken.version=$(broken_VERSION) \
     ro.modversion=$(broken_MOD_VERSION) \
     ro.broken.buildtype=$(broken_BUILD_TYPE)
-
