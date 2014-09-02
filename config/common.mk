@@ -35,6 +35,11 @@ PRODUCT_COPY_FILES += \
 # broken-specific init file
 PRODUCT_COPY_FILES += \
     vendor/broken/prebuilt/common/etc/init.local.rc:root/init.broken.rc
+    
+# Compcache/Zram support
+PRODUCT_COPY_FILES += \
+    vendor/broken/prebuilt/common/bin/compcache:system/bin/compcache \
+    vendor/broken/prebuilt/common/bin/handle_compcache:system/bin/handle_compcache
 
 # Copy latinime for gesture typing
 PRODUCT_COPY_FILES += \
@@ -47,9 +52,6 @@ PRODUCT_COPY_FILES += \
 # SELinux filesystem labels
 PRODUCT_COPY_FILES += \
     vendor/broken/prebuilt/common/etc/init.d/50selinuxrelabel:system/etc/init.d/50selinuxrelabel
-    
-# Embed SuperUser
-SUPERUSER_EMBEDDED := true
 
 # SU Support
 PRODUCT_COPY_FILES += \
