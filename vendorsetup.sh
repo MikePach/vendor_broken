@@ -14,3 +14,4 @@ add_lunch_combo broken_skyrocket-userdebug
 add_lunch_combo broken_t769-userdebug
 add_lunch_combo broken_toro-userdebug
 add_lunch_combo broken_wickedhh-userdebug
+add_lunch_combo broken_wickedn5-userdebug
