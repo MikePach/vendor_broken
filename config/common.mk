@@ -214,7 +214,7 @@ RELEASE = true
 BROKEN_VERSION_MAJOR = 5
 BROKEN_VERSION_MINOR = 0
 
-# Set VALIDUS_BUILDTYPE
+# Set Broken_BUILDTYPE
 ifdef BROKEN_NIGHTLY
     BROKEN_BUILDTYPE := NIGHTLY
 endif
@@ -227,7 +227,7 @@ endif
 # Set Unofficial if no buildtype set (Buildtype should ONLY be set by Broken team members!)
 ifdef BROKEN_BUILDTYPE
 else
-    BROKEN_BUILDTYPE := TESTING
+    BROKEN_BUILDTYPE := OFFICIAL
     BROKEN_VERSION_MAJOR :=
     BROKEN_VERSION_MINOR :=
 endif
