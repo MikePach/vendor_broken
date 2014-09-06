@@ -1,6 +1,5 @@
 add_lunch_combo broken_d2lte-userdebug
 add_lunch_combo broken_dlx-userdebug
-add_lunch_combo broken_exhilarate-userdebug
 add_lunch_combo broken_flo-userdebug
 add_lunch_combo broken_grouper-userdebug
 add_lunch_combo broken_hammerhead-userdebug
@@ -12,7 +11,6 @@ add_lunch_combo broken_moto_msm8960dt-userdebug
 add_lunch_combo broken_quincyatt-userdebug
 add_lunch_combo broken_quincytmo-userdebug
 add_lunch_combo broken_skyrocket-userdebug
-add_lunch_combo broken_t769-userdebug
 add_lunch_combo broken_toro-userdebug
 add_lunch_combo broken_wickedhh-userdebug
 add_lunch_combo broken_wickedn5-userdebug
