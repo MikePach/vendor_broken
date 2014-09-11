@@ -124,7 +124,7 @@ PRODUCT_PACKAGES += \
     CellBroadcastReceiver \
     Development \
     SpareParts \
-    su
+    SuperSu
 
 # Optional packages
 PRODUCT_PACKAGES += \
