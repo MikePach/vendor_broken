@@ -16,7 +16,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.setupwizard.enterprise_mode=1 \
     ro.com.android.dateformat=MM-dd-yyyy \
     ro.com.android.dataroaming=false \
-    persist.sys.root_access=3
+    persist.sys.root_access=1
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.build.selinux=1
@@ -58,8 +58,7 @@ PRODUCT_COPY_FILES += \
     vendor/broken/prebuilt/bin/su:system/xbin/daemonsu \
     vendor/broken/prebuilt/bin/su:system/xbin/su \
     vendor/broken/prebuilt/common/etc/init.d/99SuperSUDaemon:system/etc/init.d/99SuperSUDaemon \
-    vendor/broken/prebuilt/common/app/Superuser.apk:system/app/Superuser.apk \
-    vendor/broken/prebuilt/etc/install-recovery.sh:/system/etc/install-recovery.sh
+    vendor/broken/prebuilt/common/app/Superuser.apk:system/app/Superuser.apk
 
 # Enable SIP+VoIP on all targets
 PRODUCT_COPY_FILES += \
