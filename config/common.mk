@@ -57,7 +57,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     vendor/broken/prebuilt/bin/su:system/xbin/daemonsu \
     vendor/broken/prebuilt/bin/su:system/xbin/su \
-    vendor/broken/prebuilt/bin/su:/system/bin/.ext/.su \
     vendor/broken/prebuilt/common/etc/init.d/99SuperSUDaemon:system/etc/init.d/99SuperSUDaemon \
     vendor/broken/prebuilt/common/app/Superuser.apk:system/app/Superuser.apk \
     vendor/broken/prebuilt/etc/install-recovery.sh:/system/etc/install-recovery.sh
