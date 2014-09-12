@@ -16,7 +16,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.setupwizard.enterprise_mode=1 \
     ro.com.android.dateformat=MM-dd-yyyy \
     ro.com.android.dataroaming=false \
-    persist.sys.root_access=1
+    persist.sys.root_access=3
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.build.selinux=1
