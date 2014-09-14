@@ -6,6 +6,7 @@ add_lunch_combo broken_grouper-userdebug
 add_lunch_combo broken_hammerhead-userdebug
 add_lunch_combo broken_jflte-userdebug
 add_lunch_combo broken_lt01wifi-userdebug
+add_lunch_combo broken_m7vzw-userdebug
 add_lunch_combo broken_m8-userdebug
 add_lunch_combo broken_mako-userdebug
 add_lunch_combo broken_moto_msm8960dt-userdebug
