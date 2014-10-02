@@ -214,9 +214,6 @@ make otapackage -j"$opt_jobs"
 fi
 echo -e ""
 
-# cleanup unused built
-rm -f $OUTDIR/target/product/$device/broken_*-ota*.zip
-
 # finished? get elapsed time
 t2=$($DATE +%s)
 
