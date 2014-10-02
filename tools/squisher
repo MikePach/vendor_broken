@@ -1,10 +1,8 @@
-#!/bin/bash
+#!/bin/sh
 #
 # Squish a CM otapackage for distribution
 # cyanogen
 #
-
-. $ANDROID_BUILD_TOP/vendor/broken/tools/colors
 
 OUT_TARGET_HOST=`uname -a | grep Darwin`
 if [ -z "$OUT_TARGET_HOST" ]
@@ -21,22 +19,8 @@ else
 fi
 
 if [ -z "$OUT" -o ! -d "$OUT" ]; then
-	echo -e ${red}"ERROR: $0 only works with a full build environment. $OUT should exist."${txtrst}
-	exit 1
-fi
-
-if [ "$TARGET_BUILD_TYPE" = "debug" ]; then
-    OTAPACKAGE=$OUT/${TARGET_PRODUCT}_debug-ota-eng.$USER.zip
-elif [ "$TARGET_BUILD_VARIANT" = "userdebug" ]; then
-    OTAPACKAGE=$OUT/$TARGET_PRODUCT-ota-userdebug.$USER.zip
-elif [ "$TARGET_BUILD_VARIANT" = "user" ]; then
-    OTAPACKAGE=$OUT/$TARGET_PRODUCT-ota-user.$USER.zip
-else
-    OTAPACKAGE=$OUT/$TARGET_PRODUCT-ota-eng.$USER.zip
-fi
-if [ ! -f "$OTAPACKAGE" ]; then
-	echo -e ${red}"$OTAPACKAGE doesn't exist!"${txtrst};
-	exit 1
+    echo "ERROR: $0 only works with a full build environment. $OUT should exist."
+    exit 1
 fi
 
 if [ "$TARGET_BUILD_TYPE" = "debug" ]; then
@@ -147,23 +131,6 @@ rm -rf $REPACK/ota/system/tts
 # No need for srec
 rm -rf $REPACK/ota/system/usr/srec
 
-# Delete broken specific files
-if [ -f $ANDROID_BUILD_TOP/vendor/broken/tools/squisher.rm ]; then
-	for RM_FILE in `cat $ANDROID_BUILD_TOP/vendor/broken/tools/squisher.rm`; do
-		rm -f $REPACK/ota/$RM_FILE
-	done
-fi
-
-# Delete target product specific files
-if [ -f $ANDROID_BUILD_TOP/vendor/broken/tools/$TARGET_PRODUCT-squisher.rm ]; then
-	for RM_FILE in `cat $ANDROID_BUILD_TOP/vendor/broken/tools/$TARGET_PRODUCT-squisher.rm`; do
-		rm -f $REPACK/ota/$RM_FILE
-	done
-fi
-
-# Delete unnecessary binaries
-( cd $REPACK/ota/system/bin; echo $DELETE_BINS | xargs rm -f; )
-
 # No need for recovery
 rm -rf $REPACK/ota/recovery
 rm -rf $REPACK/ota/system/etc/recovery-resource.dat
@@ -172,44 +139,32 @@ rm -rf $REPACK/ota/system/etc/recovery-resource.dat
 [ -d $REPACK/ota/system/lib/modules ] && \
 	find $REPACK/ota/system/lib/modules -name "*.ko" -print0 | xargs -0 arm-eabi-strip --strip-unneeded
 
-# Determine what to name the new signed package
-MODVERSION=`sed -n -e'/ro\.broken\.version/s/^.*=//p' $OUT/system/build.prop`
-TARGET_PRODUCT_FINAL=`echo $TARGET_PRODUCT | cut -b 8-`
-echo -e ${grn}"MODVERSION: $MODVERSION"${txtrst}
-OUTFILE=$OUT/$MODVERSION-$TARGET_PRODUCT_FINAL.zip
-ABIGEN=`grep 'ro.product.cpu.abi=' $REPACK/ota/system/build.prop | sed -e 's/ro.product.cpu.abi=//g'`
-OUTFILE=$OUT/$MODVERSION.zip
-
-if [ -n $ABIGEN ]; then
-	echo ${cya}"Packing in Pre-Built Libs for CPU Variant:${ylw}$ABIGEN"${txtrst}
-	cp ${ANDROID_BUILD_TOP}/vendor/broken/prebuilt/libs/$ABIGEN/libbypass.so $REPACK/ota/system/lib/libbypass.so
-	echo ""
-fi
-
 # Fix LCD Density for broken
 DEVICELCD=`sed -n -e'/ro\.sf\.lcd_density/s/^.*=//p' $OUT/system/build.prop`
 if [ "$DEVICELCD" = "240" ]; then
-    sed -i '$a persist.sys.lcd_density=210' $OUT/system/build.prop
+   sed -i 's/ro.sf.lcd_density=240/ro.sf.lcd_density=182/g' $OUT/system/build.prop
 elif [ "$DEVICELCD" = "320" ]; then
-    sed -i '$a persist.sys.lcd_density=290' $OUT/system/build.prop
+    sed -i 's/ro.sf.lcd_density=320/ro.sf.lcd_density=245/g' $OUT/system/build.prop
 elif [ "$DEVICELCD" = "480" ]; then
-    sed -i '$a persist.sys.lcd_density=440' $OUT/system/build.prop
+    sed -i 's/ro.sf.lcd_density=480/ro.sf.lcd_density=370/g' $OUT/system/build.prop
 elif [ "$DEVICELCD" = "213" ]; then
-    sed -i '$a persist.sys.lcd_density=190' $OUT/system/build.prop
+    sed -i 's/ro.sf.lcd_density=213/ro.sf.lcd_density=182/g' $OUT/system/build.prop
 fi
 
-# Fix LCD Density for GNote
+# Device specific LCD Density fix
 DEVICEID=`sed -n -e'/ro\.product\.device/s/^.*=//p' $OUT/system/build.prop`
 if [ "$DEVICEID" = "SGH-I717" ]; then
-   sed -i 's/persist.sys.lcd_density=245/persist.sys.lcd_density=268/g' $OUT/system/build.prop
+   sed -i 's/ro.sf.lcd_density=245/ro.sf.lcd_density=268/g' $OUT/system/build.prop
 elif [ "$DEVICEID" = "GT-N7000" ]; then
-   sed -i 's/persist.sys.lcd_density=245/persist.sys.lcd_density=268/g' $OUT/system/build.prop
+   sed -i 's/ro.sf.lcd_density=245/ro.sf.lcd_density=268/g' $OUT/system/build.prop
 elif [ "$DEVICEID" = "mako" ]; then
-   sed -i 's/persist.sys.lcd_density=245/persist.sys.lcd_density=290/g' $OUT/system/build.prop
+   sed -i 's/ro.sf.lcd_density=245/ro.sf.lcd_density=268/g' $OUT/system/build.prop
 elif [ "$DEVICEID" = "flo" ]; then
-   sed -i 's/persist.sys.lcd_density=245/persist.sys.lcd_density=286/g' $OUT/system/build.prop
+   sed -i 's/ro.sf.lcd_density=245/ro.sf.lcd_density=286/g' $OUT/system/build.prop
 elif [ "$DEVICEID" = "deb" ]; then
-   sed -i 's/persist.sys.lcd_density=245/persist.sys.lcd_density=286/g' $OUT/system/build.prop
+   sed -i 's/ro.sf.lcd_density=245/ro.sf.lcd_density=286/g' $OUT/system/build.prop
+elif [ "$DEVICEID" = "amami" ]; then
+   sed -i 's/ro.sf.lcd_density=245/ro.sf.lcd_density=286/g' $OUT/system/build.prop
 fi
 cp -f $OUT/system/build.prop $REPACK/ota/system/build.prop
 
@@ -226,17 +181,25 @@ if [ -e "$PREBUILTKERNEL" ];then
    mv -f $REPACK/ota/system/brokenkernel/boot.img $REPACK/ota/boot.img
 fi
 
+# Determine what to name the new signed package
+MODVERSION=`sed -n -e'/ro\.modversion/s/^.*=//p' $REPACK/ota/system/build.prop`
+OUTFILE=$OUT/$MODVERSION.zip
+echo MODVERSION: $MODVERSION
+
 # Pack it up and sign
-echo -e ${grn}"Zipping package..."${txtrst}
+printf "Zipping package..."
 ( cd $REPACK/ota; zip $QUIET -r $REPACK/update.zip . )
-echo -e ${grn}"Signing package..."${txtrst}
+echo
+printf "Signing package..."
 SECURITYDIR=$ANDROID_BUILD_TOP/build/target/product/security
 java -Xmx1024m \
 	-jar $OUT/../../../host/$OUT_TARGET_HOST/framework/signapk.jar \
 	-w $SECURITYDIR/testkey.x509.pem $SECURITYDIR/testkey.pk8 \
 	$REPACK/update.zip $OUTFILE
-echo -e ${grn}"Cleaning up..."${txtrst}
+echo
+printf "Cleaning up..."
 rm -rf $REPACK
+echo
 
 echo -e $CL_RED" ******************************************************** "$CL_RST
 echo -e $CL_RED" //////////////////////////////////////////////////////// "$CL_RST
@@ -254,13 +217,16 @@ echo -e $CL_RED" /////////////////////////////////////////////////////\ | "$CL_R
 echo -e $CL_RED" //|____________________________________________________/ "$CL_RST
 echo -e $CL_RED" //////////////////////////////////////////////////////// "$CL_RST
 echo -e $CL_RED" ******************************************************** "$CL_RST
-echo -e ""; echo -e ${cya}"Package complete:${ylw} $OUTFILE"${txtrst}
-echo -e ${cya}"ZIP:${ylw}  $img"${txtrst}
-echo -e ${cya}"MD5: ${ylw} `cat $img.md5sum | awk '{print $1}'`"${txtrst}
-echo -e ${cya}"SIZE:${ylw} $ZIPSIZE"${txtrst}
-MD5VAL=`cat $img.md5sum  | awk '{ print $1 }'`
-DEVICE=`echo -e $TARGET_PRODUCT | cut -d "_" -f 2`
-echo -e ""
+
+# Create a md5 checksum image of the repacked package
+(
+img=`basename $OUTFILE`
+cd `dirname $OUTFILE`
+$MD5 $img >$img.md5sum
+echo
+echo "Package complete: $OUTFILE"
+cat $img.md5sum
+echo
 )
 
 exit 0
