@@ -208,9 +208,9 @@ else
 fi
 
 if [ "$opt_verbose" -ne 0 ]; then
-make bacon -j"$opt_jobs" 
+make -j"$opt_jobs" showcommands broken
 else
-make otapackage -j"$opt_jobs"
+make -j"$opt_jobs" broken
 fi
 echo -e ""
 
