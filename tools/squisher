@@ -220,6 +220,7 @@ img=`basename $OUTFILE`
 cd `dirname $OUTFILE`
 $MD5 $img >$img.md5sum
 ZIPSIZE=`ls -lah $OUTFILE | awk '{ print $5}'`
+echo -e ""
 echo -e $CL_RED" ******************************************************** "$CL_RST
 echo -e $CL_RED" //////////////////////////////////////////////////////// "$CL_RST
 echo -e $CL_RED" /|       \/|     \///     \//|  |/  ///|  ___|/|  \|  |/ "$CL_RST
