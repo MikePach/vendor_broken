@@ -144,29 +144,29 @@ rm -rf $REPACK/ota/system/etc/recovery-resource.dat
 # Fix LCD Density for broken
 DEVICELCD=`sed -n -e'/ro\.sf\.lcd_density/s/^.*=//p' $OUT/system/build.prop`
 if [ "$DEVICELCD" = "240" ]; then
-   sed -i 's/ro.sf.lcd_density=240/ro.sf.lcd_density=210/g' $OUT/system/build.prop
+   sed -i '$a persist.sys.lcd_density=210' $OUT/system/build.prop
 elif [ "$DEVICELCD" = "320" ]; then
-    sed -i 's/ro.sf.lcd_density=320/ro.sf.lcd_density=290/g' $OUT/system/build.prop
+    sed -i '$a persist.sys.lcd_density=290' $OUT/system/build.prop
 elif [ "$DEVICELCD" = "480" ]; then
-    sed -i 's/ro.sf.lcd_density=480/ro.sf.lcd_density=440/g' $OUT/system/build.prop
+    sed -i '$a persist.sys.lcd_density=440' $OUT/system/build.prop
 elif [ "$DEVICELCD" = "213" ]; then
-    sed -i 's/ro.sf.lcd_density=213/ro.sf.lcd_density=190/g' $OUT/system/build.prop
+    sed -i '$a persist.sys.lcd_density=190' $OUT/system/build.prop
 fi
 
 # Device specific LCD Density fix
 DEVICEID=`sed -n -e'/ro\.product\.device/s/^.*=//p' $OUT/system/build.prop`
 if [ "$DEVICEID" = "SGH-I717" ]; then
-   sed -i 's/ro.sf.lcd_density=245/ro.sf.lcd_density=268/g' $OUT/system/build.prop
+   sed -i 's/persist.sys.lcd_density=245/persist.sys.lcd_density=268/g' $OUT/system/build.prop
 elif [ "$DEVICEID" = "GT-N7000" ]; then
-   sed -i 's/ro.sf.lcd_density=245/ro.sf.lcd_density=268/g' $OUT/system/build.prop
+   sed -i 's/persist.sys.lcd_density=245/persist.sys.lcd_density=268/g' $OUT/system/build.prop
 elif [ "$DEVICEID" = "mako" ]; then
-   sed -i 's/ro.sf.lcd_density=245/ro.sf.lcd_density=290/g' $OUT/system/build.prop
+   sed -i 's/persist.sys.lcd_density=245/persist.sys.lcd_density=268/g' $OUT/system/build.prop
 elif [ "$DEVICEID" = "flo" ]; then
-   sed -i 's/ro.sf.lcd_density=245/ro.sf.lcd_density=286/g' $OUT/system/build.prop
+   sed -i 's/persist.sys.lcd_density=245/persist.sys.lcd_density=286/g' $OUT/system/build.prop
 elif [ "$DEVICEID" = "deb" ]; then
-   sed -i 's/ro.sf.lcd_density=245/ro.sf.lcd_density=286/g' $OUT/system/build.prop
+   sed -i 's/persist.sys.lcd_density=245/persist.sys.lcd_density=286/g' $OUT/system/build.prop
 elif [ "$DEVICEID" = "amami" ]; then
-   sed -i 's/ro.sf.lcd_density=245/ro.sf.lcd_density=286/g' $OUT/system/build.prop
+   sed -i 's/persist.sys.lcd_density=245/persist.sys.lcd_density=286/g' $OUT/system/build.prop
 fi
 cp -f $OUT/system/build.prop $REPACK/ota/system/build.prop
 
