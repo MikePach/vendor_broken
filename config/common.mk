@@ -211,7 +211,7 @@ endif
 # version
 RELEASE = true
 BROKEN_VERSION_MAJOR = 1
-BROKEN_VERSION_MINOR = 2
+BROKEN_VERSION_MINOR = 3
 
 # Set BROKEN_BUILDTYPE
 ifdef BROKEN_NIGHTLY
@@ -226,16 +226,16 @@ endif
 # Set Unofficial if no buildtype set (Buildtype should ONLY be set by Broken team members!)
 ifdef BROKEN_BUILDTYPE
 else
-    BROKEN_BUILDTYPE := OFFICIAL
+    BROKEN_BUILDTYPE := TESTING
     BROKEN_VERSION_MAJOR :=
     BROKEN_VERSION_MINOR :=
 endif
 
 # Set broken version
 ifdef BROKEN_RELEASE
-    BROKEN_VERSION := "BROKEN-1.2-v"$(BROKEN_VERSION_MAJOR).$(BROKEN_VERSION_MINOR)
+    BROKEN_VERSION := "BROKEN-1.3-v"$(BROKEN_VERSION_MAJOR).$(BROKEN_VERSION_MINOR)
 else
-    BROKEN_VERSION := "BROKEN-1.2-$(BROKEN_BUILDTYPE)"-$(shell date +%Y%m%d-%H%M)
+    BROKEN_VERSION := "BROKEN-1.3-$(BROKEN_BUILDTYPE)"-$(shell date +%Y%m%d-%H%M)
 endif
 
 PRODUCT_PROPERTY_OVERRIDES += \
