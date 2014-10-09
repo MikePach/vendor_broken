@@ -123,7 +123,8 @@ PRODUCT_PACKAGES += \
     CellBroadcastReceiver \
     Development \
     SpareParts \
-    SuperSu
+    SuperSu \
+    BrokenCenter
 
 # Optional packages
 PRODUCT_PACKAGES += \
