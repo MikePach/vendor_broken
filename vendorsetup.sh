@@ -18,4 +18,4 @@ add_lunch_combo broken_quincytmo-userdebug
 add_lunch_combo broken_skyrocket-userdebug
 add_lunch_combo broken_t769-userdebug
 add_lunch_combo broken_toro-userdebug
-add_lunch_combo broken_vs980-uderdebug
+add_lunch_combo broken_vs980-userdebug
