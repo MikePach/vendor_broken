@@ -209,10 +209,11 @@ PRODUCT_COPY_FILES += \
     vendor/broken/prebuilt/common/bootanimation/$(TARGET_BOOTANIMATION_NAME).zip:system/media/bootanimation.zip
 endif
 
-# version
-RELEASE = true
-BROKEN_VERSION_MAJOR = 1
-BROKEN_VERSION_MINOR = 3
+# Versioning System
+# KitKat Broken freeze code
+PRODUCT_VERSION_MAJOR = 4.4.4
+PRODUCT_VERSION_MINOR = build
+PRODUCT_VERSION_MAINTENANCE = 1.3
 
 # Set BROKEN_BUILDTYPE
 ifdef BROKEN_NIGHTLY
