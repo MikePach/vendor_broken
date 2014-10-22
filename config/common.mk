@@ -236,7 +236,7 @@ endif
 
 # Set broken version
 ifdef BROKEN_OFFICIAL
-    BROKEN_VERSION := Broken-$(PRODUCT_VERSION_MAINTENANCE).$(BROKEN_VERSION_MAJOR)-$(shell date +%Y%m%d-%H%M)
+    BROKEN_VERSION := Broken-$(PRODUCT_VERSION_MAINTENANCE)-$(BROKEN_VERSION_MAJOR)-$(shell date +%Y%m%d-%H%M)
 else
     BROKEN_VERSION := Broken-$(BROKEN_VERSION_MAJOR)-$(shell date +%Y%m%d-%H%M)
 endif
