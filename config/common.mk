@@ -226,11 +226,9 @@ ifdef BROKEN_RELEASE
     BROKEN_BUILDTYPE := RELEASE
 endif
 # Set Unofficial if no buildtype set (Buildtype should ONLY be set by Broken team members!)
-ifdef BROKEN_BUILDTYPE :=
-else
-    BROKEN_BUILDTYPE := UNOFFICIAL
-    BROKEN_VERSION_MAJOR :=4.4.4
-    BROKEN_VERSION_MINOR :=1.3
+ifdef BROKEN_BUILDTYPE := UNOFFICIAL
+      BROKEN_VERSION_MAJOR :=4.4.4
+      BROKEN_VERSION_MINOR :=1.3
 endif
 
 # Set broken version
