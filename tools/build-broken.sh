@@ -115,7 +115,7 @@ device="$1"
 
 # get current version
 eval $(grep "^BROKEN_VERSION_" vendor/broken/config/common.mk | sed 's/ *//g')
-VERSION="$BROKEN_VERSION_MAJOR.$BROKEN_VERSION_MAINTENANCE"
+VERSION="$BROKEN_VERSION_MAINTENANCE.$BROKEN_VERSION_MAJOR."
 
 echo -e ${cya}"Building ${ppl}Broken ${bldylw}$VERSION"${txtrst}
 
