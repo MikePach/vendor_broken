@@ -209,11 +209,25 @@ PRODUCT_COPY_FILES += \
     vendor/broken/prebuilt/common/bootanimation/$(TARGET_BOOTANIMATION_NAME).zip:system/media/bootanimation.zip
 endif
 
-# Versioning System
-# KitKat Broken freeze code
-PRODUCT_VERSION_MAJOR = 4.4.4
-PRODUCT_VERSION_MINOR = build
-PRODUCT_VERSION_MAINTENANCE = 1.3
+# version
+RELEASE = true
+BROKEN_VERSION_MAJOR = 1
+BROKEN_VERSION_MINOR = 3
+
+# Set BROKEN_BUILDTYPE
+ifdef BROKEN_NIGHTLY
+    BROKEN_BUILDTYPE := NIGHTLY
+endif
+ifdef BROKEN_EXPERIMENTAL
+    BROKEN_BUILDTYPE := EXPERIMENTAL
+endif
+ifdef BROKEN_RELEASE
+    BROKEN_BUILDTYPE := RELEASE
+endif
+ifdef BROKEN_BUILD_EXTRA
+    BROKEN_POSTFIX := -$(BROKEN_BUILD_EXTRA)
+endif
+# Set Unofficial if no buildtype set (Buildtype should ONLY be set by Broken team members!)
 ifdef BROKEN_BUILD_EXTRA
     BROKEN_POSTFIX := -$(BROKEN_BUILD_EXTRA)
 endif
@@ -223,9 +237,15 @@ ifndef BROKEN_BUILD_TYPE
     BROKEN_POSTFIX := -$(shell date +"%Y%m%d-%H%M")
 endif
 
-# Set all versions
-BROKEN_VERSION := Broken-$(PRODUCT_VERSION_MAJOR).$(PRODUCT_VERSION_MINOR).$(PRODUCT_VERSION_MAINTENANCE)-$(BROKEN_BUILD_TYPE)$(BROKEN_POSTFIX)
-BROKEN_MOD_VERSION := Broken-$(BROKEN_BUILD)-$(PRODUCT_VERSION_MAJOR).$(PRODUCT_VERSION_MINOR).$(PRODUCT_VERSION_MAINTENANCE)-$(BROKEN_BUILD_TYPE)$(BROKEN_POSTFIX)
+# Set broken version
+ifdef BROKEN_RELEASE
+    BROKEN_VERSION := Broken-$(PRODUCT_VERSION_MAINTENANCE).$(BROKEN_VERSION_MAJOR)-$(shell date +%Y%m%d-%H%M)
+else
+    BROKEN_VERSION := Broken-$(PLATFORM_VERSION_CODENAME).$(BROKEN_BUILDTYPE)-$(shell date +%Y%m%d-%H%M)
+endif
+  
+# by default, do not update the recovery with system updates
+PRODUCT_PROPERTY_OVERRIDES += persist.sys.recovery_update=false
 
 PRODUCT_PROPERTY_OVERRIDES += \
     BUILD_DISPLAY_ID=$(BUILD_ID) \
