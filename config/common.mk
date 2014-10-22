@@ -209,10 +209,10 @@ PRODUCT_COPY_FILES += \
     vendor/broken/prebuilt/common/bootanimation/$(TARGET_BOOTANIMATION_NAME).zip:system/media/bootanimation.zip
 endif
 
-# Versioning System
-# KitKat Broken freeze code
-PRODUCT_VERSION_MAJOR = 4.4.4
-PRODUCT_VERSION_MINOR = build
+# version
+RELEASE = true
+BROKEN_VERSION_MAJOR = 4.4.4
+BROKEN_VERSION_MINOR = 
 PRODUCT_VERSION_MAINTENANCE = 1.3
 
 # Set BROKEN_BUILDTYPE
@@ -226,13 +226,11 @@ ifdef BROKEN_RELEASE
     BROKEN_BUILDTYPE := RELEASE
 endif
 # Set Unofficial if no buildtype set (Buildtype should ONLY be set by Broken team members!)
-ifdef BROKEN_BUILD_EXTRA
-    BROKEN_POSTFIX := -$(BROKEN_BUILD_EXTRA)
-endif
-ifndef BROKEN_BUILD_TYPE
-    BROKEN_BUILD_TYPE := UNOFFICIAL
-    PLATFORM_VERSION_CODENAME := UNOFFICIAL
-    BROKEN_POSTFIX := -$(shell date +"%Y%m%d-%H%M")
+ifdef BROKEN_BUILDTYPE :=
+else
+    BROKEN_BUILDTYPE := UNOFFICIAL
+    BROKEN_VERSION_MAJOR :=4.4.4
+    BROKEN_VERSION_MINOR :=1.3
 endif
 
 # Set broken version
@@ -241,6 +239,9 @@ ifdef BROKEN_RELEASE
 else
     BROKEN_VERSION := Broken-$(PLATFORM_VERSION_CODENAME).$(BROKEN_BUILDTYPE)-$(shell date +%Y%m%d-%H%M)
 endif
+
+PRODUCT_PROPERTY_OVERRIDES += \
+  ro.broken.version=$(BROKEN_VERSION)
   
 # by default, do not update the recovery with system updates
 PRODUCT_PROPERTY_OVERRIDES += persist.sys.recovery_update=false
