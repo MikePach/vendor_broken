@@ -227,7 +227,7 @@ endif
 # Set Unofficial if no buildtype set (Buildtype should ONLY be set by Broken team members!)
 ifdef BROKEN_BUILDTYPE
 else
-    BROKEN_BUILDTYPE := OFFICIAL
+    BROKEN_BUILDTYPE :=
     BROKEN_VERSION_MAJOR :=1
     BROKEN_VERSION_MINOR :=3
 endif
