@@ -224,9 +224,6 @@ endif
 ifdef BROKEN_RELEASE
     BROKEN_BUILDTYPE := RELEASE
 endif
-ifdef BROKEN_BUILD_EXTRA
-    BROKEN_POSTFIX := -$(BROKEN_BUILD_EXTRA)
-endif
 # Set Unofficial if no buildtype set (Buildtype should ONLY be set by Broken team members!)
 ifdef BROKEN_BUILD_EXTRA
     BROKEN_POSTFIX := -$(BROKEN_BUILD_EXTRA)
