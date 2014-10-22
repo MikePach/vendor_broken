@@ -210,6 +210,7 @@ PRODUCT_COPY_FILES += \
 endif
 
 # version
+OFFICIAL = false
 BROKEN_VERSION_MAJOR = 4.4.4
 BROKEN_VERSION_MINOR = build
 PRODUCT_VERSION_MAINTENANCE = 1.3
@@ -223,7 +224,7 @@ ifdef BROKEN_EXPERIMENTAL
     BROKEN_BUILDTYPE := EXPERIMENTAL
 endif
 ifdef BROKEN_RELEASE
-    BROKEN_BUILDTYPE := RELEASE
+    BROKEN_BUILDTYPE := OFFICIAL
 endif
 # Set Unofficial if no buildtype set (Buildtype should ONLY be set by Broken team members!)
 ifdef BROKEN_BUILDTYPE
@@ -237,7 +238,7 @@ endif
 ifdef BROKEN_RELEASE
     BROKEN_VERSION := Broken-$(PRODUCT_VERSION_MAINTENANCE).$(BROKEN_VERSION_MAJOR)-$(shell date +%Y%m%d-%H%M)
 else
-    BROKEN_VERSION := Broken-$(PRODUCT_VERSION_MAINTENANCE).$(BROKEN_VERSION_MAJOR)-$(shell date +%Y%m%d-%H%M)
+    BROKEN_VERSION := Broken-$(BROKEN_VERSION_MAJOR)-$(shell date +%Y%m%d-%H%M)
 endif
 
 PRODUCT_PROPERTY_OVERRIDES += \
