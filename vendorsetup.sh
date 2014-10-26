@@ -1,6 +1,7 @@
 add_lunch_combo broken_d2lte-userdebug
 add_lunch_combo broken_d851-userdebug
 add_lunch_combo broken_dlx-userdebug
+add_lunch_combo broken_exhilarate-userdebug
 add_lunch_combo broken_falcon-userdebug
 add_lunch_combo broken_flo-userdebug
 add_lunch_combo broken_grouper-userdebug
