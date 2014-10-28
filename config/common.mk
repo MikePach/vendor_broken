@@ -124,7 +124,8 @@ PRODUCT_PACKAGES += \
     Development \
     SpareParts \
     SuperSu \
-    BrokenCenter
+    BrokenCenter \
+    BrokenOsWalls
 
 # Optional packages
 PRODUCT_PACKAGES += \
