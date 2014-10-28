@@ -118,6 +118,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     vendor/broken/prebuilt/common/app/ViPER4Android.apk:system/app/ViPER4Android.apk
 
+# LockClock
+PRODUCT_COPY_FILES += \
+    vendor/broken/prebuilt/common/app/LockClock.apk:system/app/LockClock.apk
+
 # Required packages
 PRODUCT_PACKAGES += \
     CellBroadcastReceiver \
