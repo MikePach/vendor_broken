@@ -215,7 +215,7 @@ PRODUCT_COPY_FILES += \
 endif
 
 # Versioning System
-# KitKat SlimKat freeze code
+# BrokenOs freeze code
 RELEASE = TRUE
 BROKEN_VERSION_MAJOR = 4.4.4
 BROKEN_VERSION_MINOR = build
