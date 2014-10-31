@@ -214,40 +214,23 @@ PRODUCT_COPY_FILES += \
     vendor/broken/prebuilt/common/bootanimation/$(TARGET_BOOTANIMATION_NAME).zip:system/media/bootanimation.zip
 endif
 
-# version
-BROKEN_OFFICIAL = false
-BROKEN_VERSION_MAJOR = 4.4.4
-BROKEN_VERSION_MINOR = build
+# Versioning System
+# KitKat SlimKat freeze code
+PRODUCT_VERSION_MAJOR = 4.4.4
+PRODUCT_VERSION_MINOR = build
 PRODUCT_VERSION_MAINTENANCE = 1.4
-BROKEN_BUILDTYPE = RELEASE
-
-# Set BROKEN_BUILDTYPE
-ifdef BROKEN_NIGHTLY
-    BROKEN_BUILDTYPE := NIGHTLY
+ifdef BROKEN_BUILD_EXTRA
+      BROKEN_POSTFIX := -$(BROKEN_BUILD_EXTRA)
 endif
-ifdef BROKEN_EXPERIMENTAL
-    BROKEN_BUILDTYPE := EXPERIMENTAL
-endif
-ifdef BROKEN_OFFICIAL
-    BROKEN_BUILDTYPE := OFFICIAL
-endif
-# Set Unofficial if no buildtype set (Buildtype should ONLY be set by Broken team members!)
-ifdef BROKEN_BUILDTYPE
-else
-    BROKEN_BUILDTYPE := UNOFFICIAL
-    BROKEN_VERSION_MAJOR := 4.4.4
-    BROKEN_VERSION_MINOR :=build
+ifndef BROKEN_BUILD_TYPE
+    BROKEN_BUILD_TYPE := UNOFFICIAL
+    PLATFORM_VERSION_CODENAME := UNOFFICIAL
+    BROKEN_POSTFIX := -$(shell date +"%Y%m%d-%H%M")
 endif
 
-# Set broken version
-ifdef BROKEN_OFFICIAL
-    BROKEN_VERSION := Broken-$(PRODUCT_VERSION_MAINTENANCE)-$(BROKEN_VERSION_MAJOR)-$(shell date +%Y%m%d-%H%M)
-else
-    BROKEN_VERSION := Broken-$(BROKEN_VERSION_MAJOR)-$(shell date +%Y%m%d-%H%M)
-endif
-
-PRODUCT_PROPERTY_OVERRIDES += \
-  ro.broken.version=$(BROKEN_VERSION)
+# Set Broken versions (DO NOT TOUCH)
+BROKEN_VERSION := Broken-$(PRODUCT_VERSION_MAINTENANCE)-$(BROKEN_VERSION_MAJOR)-$(shell date +%Y%m%d-%H%M)
+BROKEN_MOD_VERSION := Broken-$(BROKEN_BUILD)-$(PRODUCT_VERSION_MAJOR).$(PRODUCT_VERSION_MINOR).$(PRODUCT_VERSION_MAINTENANCE)-$(BROKEN_BUILD_TYPE)$(BROKEN_POSTFIX)
   
 # by default, do not update the recovery with system updates
 PRODUCT_PROPERTY_OVERRIDES += persist.sys.recovery_update=false
