@@ -145,7 +145,7 @@ fi
 if [ "$opt_sync" -ne 0 ]; then
     echo -e ""
     echo -e ${bldblu}"Fetching latest sources"${txtrst}
-    repo sync -j12
+    repo sync -f -j12
     echo -e ""
 fi
 
