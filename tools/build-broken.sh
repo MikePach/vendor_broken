@@ -122,17 +122,17 @@ echo -e ${cya}"Building ${ppl}Broken ${bldylw}$VERSION"${txtrst}
 if [ "$opt_clean" -eq 1 ]; then
     make clean >/dev/null
     echo -e ""
-    echo -e ${bldblu}"Out is clean"${txtrst}
+    echo -e ${bldblu}"Got rid of the garbage"${txtrst}
     echo -e ""
 elif [ "$opt_clean" -eq 2 ]; then
     make dirty >/dev/null
     echo -e ""
-    echo -e ${bldblu}"Out is dirty"${txtrst}
+    echo -e ${bldblu}"Full of crap"${txtrst}
     echo -e ""
 elif [ "$opt_clean" -eq 3 ]; then
     make magic >/dev/null
     echo -e ""
-    echo -e ${bldblu}"Enjoy your magical adventure"${txtrst}
+    echo -e ${bldblu}"Muhahaha"${txtrst}
     echo -e ""
 elif [ "$opt_clean" -eq 4 ]; then
     make kernelclean >/dev/null
@@ -144,8 +144,8 @@ fi
 # sync with latest sources
 if [ "$opt_sync" -ne 0 ]; then
     echo -e ""
-    echo -e ${bldblu}"Fetching latest sources"${txtrst}
-    repo sync -f -j12
+    echo -e ${bldblu}"Getting the latest shit"${txtrst}
+    repo sync -j"$opt_jobs"
     echo -e ""
 fi
 
@@ -155,7 +155,7 @@ rm -f $OUTDIR/target/product/$device/obj/KERNEL_OBJ/.version
 t1=$($DATE +%s)
 
 # setup environment
-echo -e ${bldblu}"Setting up environment"${txtrst}
+echo -e ${bldblu}"Getting ready"${txtrst}
 . build/envsetup.sh
 
 # Remove system folder (this will create a new build.prop with updated build time and date)
@@ -170,17 +170,17 @@ fi
 
 if [ "$opt_chromium" -ne 0 ]; then
     echo -e ""
-    echo -e ${bldblu}"Using prebuilt chromium"${txtrst}
+    echo -e ${bldblu}"Using prebuilt chromium cheat code"${txtrst}
     export USE_PREBUILT_CHROMIUM=1
 fi
 
 # lunch device
 echo -e ""
-echo -e ${bldblu}"Lunching device"${txtrst}
+echo -e ${bldblu}"Getting your device"${txtrst}
 lunch "broken_$device-userdebug";
 
 echo -e ""
-echo -e ${bldblu}"Starting compilation"${txtrst}
+echo -e ${bldblu}"Off like a prom dress"${txtrst}
 
 # start compilation
 if [ "$opt_dex" -ne 0 ]; then
