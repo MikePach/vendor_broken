@@ -216,7 +216,7 @@ endif
 
 # Versioning System
 # KitKat SlimKat freeze code
-RELEASE = true
+RELEASE = TRUE
 BROKEN_VERSION_MAJOR = 4.4.4
 BROKEN_VERSION_MINOR = build
 PRODUCT_VERSION_MAINTENANCE = 1.4
