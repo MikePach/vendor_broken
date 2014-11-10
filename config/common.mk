@@ -142,6 +142,7 @@ PRODUCT_PACKAGES += \
 
 # Extra Optional packages
 PRODUCT_PACKAGES += \
+    SlimFileManager \
     LatinIME \
     BluetoothExt \
     DashClock \
